@@ -1,5 +1,3 @@
-import request from '@/lib/request';
-import { useQuery } from '@tanstack/react-query';
 import { atom, useAtom } from 'jotai';
 import { NavLink } from 'react-router';
 import { Welcome } from '../welcome/welcome';
@@ -14,20 +12,15 @@ const priceAtom = atom(0);
 export default function Home() {
   const [price, setPrice] = useAtom(priceAtom);
 
-  useQuery({
-    queryKey: ['home', price],
-    queryFn: () =>
-      request.get('/api/home', {
-        data: price,
-      }),
-  });
-
   return (
-    <>
+    <div className="text-center">
       <Welcome message="" />
       <p>change something</p>
-      <p className="text-center">
-        <NavLink to="/about">about</NavLink>
+
+      <p className="mt-2 text-center">
+        <NavLink className="underline" to="/about">
+          about
+        </NavLink>
       </p>
 
       <div className="flex flex-col items-center justify-center gap-4">
@@ -50,6 +43,6 @@ export default function Home() {
           fill="black"
         />
       </svg>
-    </>
+    </div>
   );
 }
